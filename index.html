@@ -25,47 +25,96 @@
         <a href="#notes" class="btn">Explore Notes</a>
     </section>
 
-    <section class="notes" id="notes">
-        <h2>Explore Study Materials</h2>
 
-        <input type="text" id="searchInput"
-        placeholder="Search your subject...">
-        <div class="filters">
-    <button class="filter-btn active" data-category="all">All</button>
-    <button class="filter-btn" data-category="Mathematics">Mathematics</button>
-    <button class="filter-btn" data-category="Physics">Physics</button>
-    <button class="filter-btn" data-category="Computer Science">Computer Science</button>
-</div>
-
-        <div class="note-container" id="noteContainer">
-            <div class="note-card">
-                <h3>Engineering Mathematics</h3>
-                <p>Semester 1 | Mathematics</p>
-                <span>PDF Notes</span>
-            </div>
-
-            <div class="note-card">
-                <h3>Engineering Physics</h3>
-                <p>Semester 1 | Physics</p>
-                <span>PDF Notes</span>
-            </div>
-
-            <div class="note-card">
-                <h3>Programming in C</h3>
-                <p>Semester 1 | Computer Science</p>
-                <span>PDF Notes</span>
-            </div>
+<section class="notes" id="notes">
+    <div class="library-header">
+        <div>
+            <p class="eyebrow">YOUR STUDY SPACE</p>
+            <h2>Explore Notes</h2>
+            <p class="library-subtitle">Find the right material for your next study session.</p>
         </div>
-    </section>
+        <a href="#upload" class="upload-link">+ Share Notes</a>
+    </div>
 
-    <section class="upload" id="upload">
-        <h2>Share Your Notes</h2>
-        <p>Help other students learn and grow.</p>
-        <input type="text" id="noteTitle" placeholder="Enter note title">
-        <input type="text" id="noteSubject" placeholder="Enter subject">
-        <input type="file" id="noteFile" accept=".pdf">
-        <button class="btn" id="uploadBtn">Upload Notes</button>
-    </section>
+    <div class="library-toolbar">
+        <div class="search-box">
+            <span>⌕</span>
+            <input type="text" id="searchInput" placeholder="Search notes, subjects...">
+        </div>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" data-category="all">All Notes</button>
+        <button class="filter-btn" data-category="Mathematics">Mathematics</button>
+        <button class="filter-btn" data-category="Physics">Physics</button>
+        <button class="filter-btn" data-category="Computer Science">Computer Science</button>
+    </div>
+
+    <div class="library-label">
+        <h3>Available Materials</h3>
+        <span>Latest uploads</span>
+    </div>
+
+    <div class="note-container" id="noteContainer">
+        <div class="note-card">
+            <h3>Engineering Mathematics</h3>
+            <p>Semester 1 | Mathematics</p>
+            <span>PDF Notes</span>
+        </div>
+
+        <div class="note-card">
+            <h3>Engineering Physics</h3>
+            <p>Semester 1 | Physics</p>
+            <span>PDF Notes</span>
+        </div>
+
+        <div class="note-card">
+            <h3>Programming in C</h3>
+            <p>Semester 1 | Computer Science</p>
+            <span>PDF Notes</span>
+        </div>
+    </div>
+</section>
+
+
+   
+<section class="upload" id="upload">
+    <div class="upload-wrapper">
+
+        <div class="upload-heading">
+            <p class="eyebrow">CONTRIBUTE TO THE COMMUNITY</p>
+            <h2>Share Your Notes</h2>
+            <p>Have useful study material? Share it with fellow students.</p>
+        </div>
+
+        <div class="upload-form">
+            <div class="form-field">
+                <label for="noteTitle">Note Title</label>
+                <input type="text" id="noteTitle" placeholder="e.g. Engineering Mathematics Unit 1">
+            </div>
+
+            <div class="form-field">
+                <label for="noteSubject">Subject</label>
+                <input type="text" id="noteSubject" placeholder="e.g. Mathematics">
+            </div>
+
+            <div class="form-field">
+                <label>Upload PDF File</label>
+                <label for="noteFile" class="drop-zone">
+                    <span class="upload-symbol">↑</span>
+                    <strong>Choose your PDF file</strong>
+                    <span>Click here to browse your files</span>
+                    <small>PDF format only</small>
+                </label>
+                <input type="file" id="noteFile" accept=".pdf,application/pdf">
+            </div>
+
+            <button class="btn" id="uploadBtn">Upload Notes →</button>
+        </div>
+
+    </div>
+</section>
+
 
     <footer>
         <p>© 2026 NoteNest. Made for students.</p>

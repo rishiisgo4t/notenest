@@ -11,6 +11,50 @@ const searchInput = document.getElementById("searchInput");
 const noteContainer = document.getElementById("noteContainer");
 const uploadBtn = document.getElementById("uploadBtn");
 const filterButtons = document.querySelectorAll(".filter-btn");
+const noteFileInput = document.getElementById("noteFile");
+const dropZone = document.querySelector(".drop-zone");
+
+noteFileInput.addEventListener("change", function() {
+    const file = this.files[0];
+    const strong = dropZone.querySelector("strong");
+    const text = dropZone.querySelector("span:not(.upload-symbol)");
+
+    if (file) {
+        strong.textContent = file.name;
+        text.textContent = "PDF selected successfully ✓";
+    } else {
+        strong.textContent = "Choose your PDF file";
+        text.textContent = "Click here to browse your files";
+    }
+});
+dropZone.addEventListener("dragover", function(e) {
+    e.preventDefault();
+    dropZone.style.borderColor = "#7057e8";
+    dropZone.style.background = "#f0edff";
+});
+
+dropZone.addEventListener("dragleave", function() {
+    dropZone.style.borderColor = "";
+    dropZone.style.background = "";
+});
+
+dropZone.addEventListener("drop", function(e) {
+    e.preventDefault();
+
+    const file = e.dataTransfer.files[0];
+
+    if (file && file.type === "application/pdf") {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        noteFileInput.files = dataTransfer.files;
+        noteFileInput.dispatchEvent(new Event("change"));
+    } else {
+        alert("Please drop a PDF file only!");
+    }
+
+    dropZone.style.borderColor = "";
+    dropZone.style.background = "";
+});
 
 let selectedCategory = "all";
 
@@ -106,6 +150,7 @@ const filePath = Date.now() + "-" + safeName;
     uploadBtn.textContent = "Upload Notes";
 });
 
+
 async function loadNotes() {
     const { data, error } = await supabaseClient
         .from("notes")
@@ -123,20 +168,37 @@ async function loadNotes() {
         const card = document.createElement("div");
         card.className = "note-card";
 
+        const top = document.createElement("div");
+        top.className = "card-top";
+
+        const icon = document.createElement("div");
+        icon.className = "pdf-icon";
+        icon.textContent = "PDF";
+
+        const label = document.createElement("span");
+        label.className = "pdf-label";
+        label.textContent = "PDF DOCUMENT";
+
+        top.append(icon, label);
+
         const heading = document.createElement("h3");
         heading.textContent = note.title;
 
         const description = document.createElement("p");
         description.textContent = note.subject;
 
-        const label = document.createElement("span");
-        label.textContent = "PDF Notes";
+        const divider = document.createElement("div");
+        divider.className = "card-divider";
+
+        const bottom = document.createElement("div");
+        bottom.className = "card-bottom";
+
+        const fileInfo = document.createElement("span");
+        fileInfo.textContent = "Study Material";
 
         const download = document.createElement("a");
-        download.textContent = "Download PDF";
-        download.className = "btn";
-        download.style.display = "inline-block";
-        download.style.marginTop = "20px";
+        download.textContent = "Download ↓";
+        download.className = "download-btn";
 
         const { data: urlData } = supabaseClient.storage
             .from("notes")
@@ -144,12 +206,16 @@ async function loadNotes() {
 
         download.href = urlData.publicUrl;
         download.target = "_blank";
+        download.rel = "noopener noreferrer";
 
-        card.append(heading, description, label, download);
+        bottom.append(fileInfo, download);
+
+        card.append(top, heading, description, divider, bottom);
         noteContainer.appendChild(card);
     });
 
     applyFilters();
 }
+
 
 loadNotes();
